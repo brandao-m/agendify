@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-from app.api.tenants import router as tenant_router 
+from app.api.tenants import router as tenant_router
+from app.api.services import router as service_router
 
 app = FastAPI(
     title='Agendify API',
@@ -8,6 +9,7 @@ app = FastAPI(
 )
 
 app.include_router(tenant_router)
+app.include_router(service_router)
 
 @app.get('/')
 def root():
