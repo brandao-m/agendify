@@ -1,3 +1,4 @@
+# REPRESENTA OS DIAS E HORARIOS DE ATENDIMENTO
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import time

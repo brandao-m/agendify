@@ -1,3 +1,4 @@
+# REPRESENTA O PROFISSIONAL
 from sqlmodel import SQLModel, Field
 from datetime import datetime
 from typing import Optional

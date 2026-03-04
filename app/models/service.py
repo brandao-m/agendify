@@ -1,3 +1,4 @@
+# REPRESENTA OS SERVICOS OFERECIDOS
 from sqlmodel import SQLModel, Field
 from typing import Optional
 from datetime import datetime
@@ -11,6 +12,6 @@ class Service(SQLModel, table=True):
     duration_minutes: int
     price: Optional[float] = None
 
-    is_active = bool = True
+    is_active: bool = True
 
     created_at: datetime = Field(default_factory=datetime.utcnow)
