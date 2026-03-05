@@ -24,7 +24,8 @@ def create_appointment(
 
     statement = select(Appointment).where(
         Appointment.tenant_id == data.tenant_id,
-        Appointment.start_at == data.start_at
+        Appointment.start_at < end_at,
+        Appointment.end_at > data.start_at
     )
 
     existing = session.exec(statement).first()
