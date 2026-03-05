@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel
 from app.db.session import engine
+from app.models import *
 
 # IMPORTAR OS MODELS
 from app.models.tenant import Tenant
