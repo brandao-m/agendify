@@ -6,6 +6,7 @@ export default function SchedulePage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [services, setServices] = useState([]);
+  const [selectedService, setSelectedService] = useState<number | null>(null);
 
   useEffect(() => {
 
@@ -92,14 +93,32 @@ export default function SchedulePage() {
 
           <h3>Escolha o serviço</h3>
 
-          {services.map((service: any) => (
-            <div key={service.id}>
-              <label>
-                <input type="radio" name="service" />
-               {service.name} ({service.duration_minutes} min)
-              </label>
-            </div>
-    ))}
+          {services.map((service: any) => {
+
+  const isSelected = selectedService === service.id;
+
+  return (
+    <div
+      key={service.id}
+      onClick={() => setSelectedService(service.id)}
+      style={{
+        marginBottom: "12px",
+        padding: "14px",
+        borderRadius: "8px",
+        border: isSelected ? "2px solid #000" : "1px solid #ddd",
+        background: isSelected ? "#f0f0f0" : "#fff",
+        cursor: "pointer",
+        textAlign: "left",
+        transition: "0.2s"
+      }}
+    >
+      <strong>{service.name}</strong>
+      <div style={{ fontSize: "14px", color: "#666" }}>
+        {service.duration_minutes} minutos
+      </div>
+    </div>
+  );
+})}
 
   </div>
 )}
@@ -109,6 +128,7 @@ export default function SchedulePage() {
         style={{
           width: "100%",
           padding: "12px",
+          marginTop: '30px',
           background: "#000",
           color: "#fff",
           border: "none",
