@@ -23,10 +23,16 @@ def create_service(data: ServiceCreate, session: Session = Depends(get_session))
 
     return service
 
-@router.get('/', response_model=list[ServiceResponse])
-def list_services(tenant_id: int, session: Session = Depends(get_session)):
-
-    statement = select(Service).where(Service.tenant_id == tenant_id)
+@router.get('/')
+def list_services(
+    tenant_id: int,
+    session: Session = Depends(get_session)
+):
+    
+    statement = select(Service).where(
+        Service.tenant_id == tenant_id,
+        Service.is_active == True
+    )
 
     services = session.exec(statement).all()
 
