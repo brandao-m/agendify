@@ -26,3 +26,7 @@ class AppointmentListResponse(BaseModel):
     start_at: datetime
     end_at: datetime
     status: str
+
+class AppointmentStatusUpdate(BaseModel):
+
+    status: str

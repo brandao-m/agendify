@@ -67,3 +67,22 @@ def get_day_appointments(
     appointments = session.exec(statement).all()
 
     return appointments
+
+@router.patch('/{appointment_id}/cancel')
+def cancel_appointment(
+    appointment_id: int,
+    session: Session = Depends(get_session)
+):
+    
+    appointment = session.get(Appointment, appointment_id)
+
+    if not appointment:
+        return {'error': 'Agendamento não encontrado'}
+    
+    appointment.status = 'cancelado'
+
+    session.add(appointment)
+    session.commit()
+    session.refresh(appointment)
+
+    return appointment
