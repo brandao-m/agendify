@@ -6,10 +6,19 @@ from app.api.availability import router as availability_router
 from app.api.slots import router as slots_router
 from app.api.appointments import router as appointment_router
 from app.api.customers import router as customers_router
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title='Agendify API',
     version='0.1.0'
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
 
 app.include_router(tenant_router)

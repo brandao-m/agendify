@@ -1,9 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getServices } from "../api/services";
 
 export default function SchedulePage() {
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+
+  async function loadServices() {
+    try {
+      const data = await getServices();
+      setServices(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  loadServices();
+
+}, []);
 
   return (
     <div style={{
@@ -69,6 +86,23 @@ export default function SchedulePage() {
           border: "1px solid #ccc"
         }}
       />
+
+      {services.length > 0 && (
+        <div style={{ marginTop: "20px" }}>
+
+          <h3>Escolha o serviço</h3>
+
+          {services.map((service: any) => (
+            <div key={service.id}>
+              <label>
+                <input type="radio" name="service" />
+               {service.name} ({service.duration_minutes} min)
+              </label>
+            </div>
+    ))}
+
+  </div>
+)}
 
       {/* BOTÃO */}
       <button
