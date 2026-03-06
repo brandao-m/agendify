@@ -5,6 +5,7 @@ from app.api.services import router as service_router
 from app.api.Availability import router as availability_router
 from app.api.slots import router as slots_router
 from app.api.appointments import router as appointment_router
+from app.api.customers import router as customers_router
 
 app = FastAPI(
     title='Agendify API',
@@ -16,6 +17,7 @@ app.include_router(service_router)
 app.include_router(availability_router)
 app.include_router(slots_router)
 app.include_router(appointment_router)
+app.include_router(customers_router)
 
 @app.get('/')
 def root():
