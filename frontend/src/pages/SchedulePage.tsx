@@ -1,53 +1,91 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function SchedulePage() {
 
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
-    return (
-        <div style={{
-            maxWidth: '500px',
-            margin: '80px auto',
-            fontFamily: 'Arial'
-        }}>
+  return (
+    <div style={{
+      maxWidth: "420px",
+      margin: "80px auto",
+      fontFamily: "Arial",
+      textAlign: "center",
+      background: "#fff",
+      padding: "40px",
+      borderRadius: "10px",
+      boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
+    }}>
 
-            <h1>Agendar Horario</h1>
+      {/* LOGO */}
+      <img
+        src="https://via.placeholder.com/120"
+        alt="Logo"
+        style={{
+          width: "120px",
+          height: "120px",
+          borderRadius: "50%",
+          objectFit: "cover",
+          marginBottom: "15px"
+        }}
+      />
 
-            <div style={{ marginTop: '30px'}}>
-                <label>Nome</label>
-                <input
-                type='text'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                style={{ width: '100%', padding: '10px', marginTop: '5px' }}
-                />
-            </div>
-    
-        <div style={{ marginTop: '20px' }}>
-            <label>Telefone</label>
-            <input
-                type='text'
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                style={{ width: '100%', padding: '10px', marginTop: '5px' }}
-                />
-            </div>
+      {/* NOME DO ESTABELECIMENTO */}
+      <h2 style={{ margin: "10px 0" }}>
+        Marcus Barbearia
+      </h2>
 
-            <button
-                style={{
-                    marginTop: '30px',
-                    padding: '12px',
-                    width: '100%',
-                    background: '#000',
-                    color: '#fff',
-                    border: 'none',
-                    cursor: 'pointer'
-                }}
-                >
-                    Continuar
-                </button>
+      {/* TÍTULO */}
+      <h3 style={{ marginTop: "30px", marginBottom: "20px" }}>
+        AGENDAMENTO
+      </h3>
 
-            </div>
-    );
+      {/* INPUT NOME */}
+      <input
+        type="text"
+        placeholder="Seu nome"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "15px",
+          borderRadius: "5px",
+          border: "1px solid #ccc"
+        }}
+      />
+
+      {/* INPUT TELEFONE */}
+      <input
+        type="text"
+        placeholder="Seu telefone"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "25px",
+          borderRadius: "5px",
+          border: "1px solid #ccc"
+        }}
+      />
+
+      {/* BOTÃO */}
+      <button
+        style={{
+          width: "100%",
+          padding: "12px",
+          background: "#000",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          fontSize: "16px"
+        }}
+      >
+        Continuar
+      </button>
+
+    </div>
+  );
 }
