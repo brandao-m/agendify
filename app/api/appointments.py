@@ -118,6 +118,7 @@ def reschedule_appointment(
     
     appointment.start_at = new_start
     appointment.end_at = new_end
+    appointment.status = 'marcado'
 
     session.add(appointment)
     session.commit()
