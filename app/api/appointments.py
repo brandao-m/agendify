@@ -68,6 +68,26 @@ def get_day_appointments(
 
     return appointments
 
+@router.get('/week')
+def get_week_appointments(
+        tenant_id: int,
+        start_date: date,
+        session: Session = Depends(get_session)
+):
+    
+    start_week = datetime.combine(start_date, datetime.min.time())
+    end_week = start_week + timedelta(days=7)
+
+    statement = select(Appointment).where(
+        Appointment.tenant_id == tenant_id,
+        Appointment.start_at >= start_week,
+        Appointment.start_at < end_week
+    ).order_by(Appointment.start_at)
+
+    appointments = session.exec(statement).all()
+
+    return appointments
+
 @router.patch('/{appointment_id}/cancel')
 def cancel_appointment(
     appointment_id: int,
