@@ -5,7 +5,7 @@ from sqlmodel import Session, select
 from app.db.session import get_session
 from app.models.appointment import Appointment
 from app.models.service import Service
-from app.schemas.appointment import AppointmentCreate, AppointmentResponse
+from app.schemas.appointment import AppointmentCreate, AppointmentResponse, AppointmentReschedule
 
 router = APIRouter(prefix='/appointments', tags=['Appointments'])
 
@@ -80,6 +80,44 @@ def cancel_appointment(
         return {'error': 'Agendamento não encontrado'}
     
     appointment.status = 'cancelado'
+
+    session.add(appointment)
+    session.commit()
+    session.refresh(appointment)
+
+    return appointment
+
+@router.patch('/{appointment_id}/reschedule')
+def reschedule_appointment(
+    appointment_id: int,
+    data: AppointmentReschedule,
+    session: Session = Depends(get_session)
+):
+    
+    appointment = session.get(Appointment, appointment_id)
+
+    if not appointment:
+        return {'error': 'Agendamento não encontrado'}
+    
+    service = session.get(Service, appointment.service_id)
+
+    new_start = data.start_at
+    new_end = new_start + timedelta(minutes=service.duration_minutes)
+
+    statement = select(Appointment).where(
+        Appointment.tenant_id == appointment.tenant_id,
+        Appointment.start_at < new_end,
+        Appointment.end_at > new_start,
+        Appointment.id != appointment_id
+    )
+
+    conflict = session.exec(statement).first()
+
+    if conflict:
+        return {'error': 'Horário já reservado'}
+    
+    appointment.start_at = new_start
+    appointment.end_at = new_end
 
     session.add(appointment)
     session.commit()

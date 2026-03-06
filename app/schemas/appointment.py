@@ -30,3 +30,7 @@ class AppointmentListResponse(BaseModel):
 class AppointmentStatusUpdate(BaseModel):
 
     status: str
+
+class AppointmentReschedule(BaseModel):
+
+    start_at: datetime
