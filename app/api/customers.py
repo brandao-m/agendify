@@ -63,5 +63,19 @@ def find_or_create_customer(
         customer = session.exec(statement).first()
 
         return customer
+    
+@router.get('/')
+def list_customers(
+    tenant_id: int,
+    session: Session = Depends(get_session)
+):
+        
+    statement = select(Customer).where(
+    Customer.tenant_id == tenant_id
+    ).order_by(Customer.created_at.desc())
+
+    customers = session.exec(statement).all()
+
+    return customers
 
     
