@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from app.api.tenants import router as tenant_router
 from app.api.services import router as service_router
-from app.api.Availability import router as availability_router
+from app.api.availability import router as availability_router
 from app.api.slots import router as slots_router
 from app.api.appointments import router as appointment_router
 from app.api.customers import router as customers_router
