@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getServices } from "../api/services";
+import "../styles/SchedulePage.css";
 import logo from '../assets/logo.jpg'
 
 export default function SchedulePage() {
@@ -85,7 +86,7 @@ export default function SchedulePage() {
           padding: "12px",
           marginBottom: "15px",
           borderRadius: "5px",
-          border: "1px solid #ccc"
+          border: "1px solid #e5e5e5"
         }}
       />
 
@@ -120,6 +121,9 @@ export default function SchedulePage() {
     <div
       key={service.id}
       onClick={() => setSelectedService(service.id)}
+      className={`service-card ${
+        selectedService === service.id ? "service-selected" : ""
+        }`}
       style={{
         marginBottom: "12px",
         padding: "14px",
@@ -143,19 +147,7 @@ export default function SchedulePage() {
 )}
 
       {/* BOTÃO CONTINUAR */}
-      <button
-        style={{
-          width: "100%",
-          padding: "14px",
-          background: theme.primary,
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px",
-          fontWeight: 'bold'
-        }}
-      >
+      <button className="continue-button">
         Continuar
       </button>
 

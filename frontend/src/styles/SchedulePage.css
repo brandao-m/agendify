@@ -1,0 +1,38 @@
+.service-card {
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.service-card:hover {
+  background: #f8f8f8;
+  transform: scale(1.02);
+}
+
+.service-selected {
+  border: 3px solid #4db8ff;
+  background: #e8f6ff;
+}
+
+.continue-button {
+  width: 100%;
+  padding: 14px;
+  background: #ff4fa0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.continue-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
