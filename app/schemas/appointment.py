@@ -17,3 +17,12 @@ class AppointmentResponse(BaseModel):
     start_at: datetime
     end_at: datetime
     status: str
+
+class AppointmentListResponse(BaseModel):
+
+    id: int
+    customer_id: int
+    service_id: int
+    start_at: datetime
+    end_at: datetime
+    status: str

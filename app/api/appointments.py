@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from datetime import timedelta
+from datetime import timedelta, datetime, date
 from sqlmodel import Session, select
 
 from app.db.session import get_session
@@ -47,3 +47,23 @@ def create_appointment(
     session.refresh(appointment)
 
     return appointment
+
+@router.get('/day')
+def get_day_appointments(
+    tenant_id: int,
+    appointment_date: date,
+    session: Session = Depends(get_session)
+):
+    
+    start_day = datetime.combine(appointment_date, datetime.min.time())
+    end_day = datetime.combine(appointment_date, datetime.max.time())
+
+    statement = select(Appointment).where(
+        Appointment.tenant_id == tenant_id,
+        Appointment.start_at >= start_day,
+        Appointment.start_at <= end_day
+    ).order_by(Appointment.start_at)
+
+    appointments = session.exec(statement).all()
+
+    return appointments
