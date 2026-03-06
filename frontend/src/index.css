@@ -1,5 +1,13 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+
+  background:
+    radial-gradient(circle at 10% 20%, #ffd84d 3px, transparent 3px),
+    radial-gradient(circle at 80% 40%, #4db8ff 3px, transparent 3px),
+    radial-gradient(circle at 40% 70%, #ffd84d 3px, transparent 3px),
+    radial-gradient(circle at 70% 90%, #4db8ff 3px, transparent 3px),
+    #ff6fae;
+
+  background-size: 120px 120px;
 }

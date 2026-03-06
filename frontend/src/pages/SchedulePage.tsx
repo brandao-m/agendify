@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getServices } from "../api/services";
+import logo from '../assets/logo.jpg'
 
 export default function SchedulePage() {
 
@@ -7,6 +8,14 @@ export default function SchedulePage() {
   const [phone, setPhone] = useState("");
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState<number | null>(null);
+  const theme = {
+    background: "#ff6fae",
+    primary: "#ff4fa0",
+    pink: "#ff4fa0",
+    pinkh3: "#36232c",
+    blue: "#4db8ff",
+    white: "#ffffff"
+};
 
   useEffect(() => {
 
@@ -29,15 +38,15 @@ export default function SchedulePage() {
       margin: "80px auto",
       fontFamily: "Arial",
       textAlign: "center",
-      background: "#fff",
+      background: theme.white,
       padding: "40px",
-      borderRadius: "10px",
-      boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
+      borderRadius: "14px",
+      boxShadow: "0 12px 30px rgba(0,0,0,0.15)"
     }}>
 
       {/* LOGO */}
       <img
-        src="https://via.placeholder.com/120"
+        src={logo}
         alt="Logo"
         style={{
           width: "120px",
@@ -49,12 +58,19 @@ export default function SchedulePage() {
       />
 
       {/* NOME DO ESTABELECIMENTO */}
-      <h2 style={{ margin: "10px 0" }}>
-        Marcus Barbearia
+      <h2 style={{ 
+        margin: "10px 0",
+        color: theme.pink
+        }}>
+        Dra. Daisy Almeida
       </h2>
 
       {/* TÍTULO */}
-      <h3 style={{ marginTop: "30px", marginBottom: "20px" }}>
+      <h3 style={{ 
+        marginTop: "30px",
+        marginBottom: "20px",
+        color: theme.pinkh3 
+        }}>
         AGENDAMENTO
       </h3>
 
@@ -89,7 +105,10 @@ export default function SchedulePage() {
       />
 
       {services.length > 0 && (
-        <div style={{ marginTop: "20px" }}>
+        <div style={{
+          marginTop: "20px",
+          color: theme.pinkh3
+          }}>
 
           <h3>Escolha o serviço</h3>
 
@@ -105,8 +124,8 @@ export default function SchedulePage() {
         marginBottom: "12px",
         padding: "14px",
         borderRadius: "8px",
-        border: isSelected ? "2px solid #000" : "1px solid #ddd",
-        background: isSelected ? "#f0f0f0" : "#fff",
+        border: isSelected ? "3px solid ${theme.blue}" : "1px solid #ddd",
+        background: isSelected ? "#e8f6ff" : "#fff",
         cursor: "pointer",
         textAlign: "left",
         transition: "0.2s"
@@ -123,18 +142,18 @@ export default function SchedulePage() {
   </div>
 )}
 
-      {/* BOTÃO */}
+      {/* BOTÃO CONTINUAR */}
       <button
         style={{
           width: "100%",
-          padding: "12px",
-          marginTop: '30px',
-          background: "#000",
+          padding: "14px",
+          background: theme.primary,
           color: "#fff",
           border: "none",
-          borderRadius: "5px",
+          borderRadius: "8px",
           cursor: "pointer",
-          fontSize: "16px"
+          fontSize: "16px",
+          fontWeight: 'bold'
         }}
       >
         Continuar
