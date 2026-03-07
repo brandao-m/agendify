@@ -13,4 +13,4 @@ def generate_slots(start_time, end_time, duration_minutes):
 
         current += timedelta(minutes=duration_minutes)
 
-        return slots
+    return slots

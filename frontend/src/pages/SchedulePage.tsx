@@ -209,7 +209,7 @@ boxShadow: "0 12px 30px rgba(0,0,0,0.15)"
       {/* HORÁRIOS */}
       {slots.length > 0 && (
 
-        <div style={{ marginTop: "30px" }}>
+        <div style={{ marginTop: "10px" }}>
 
          <h3>Horários disponíveis</h3>
 
