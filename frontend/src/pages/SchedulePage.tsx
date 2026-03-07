@@ -188,11 +188,15 @@ export default function SchedulePage() {
         className="schedule-logo"
       />
 
-      <h2 style={{color: theme.pink}}>
+      <h2 style={{
+        color: theme.pink,
+        fontWeight: 600 
+        }}>
         Dra. Daisy Almeida
       </h2>
 
-      <h3 style={{color: theme.pinkDark}}>
+      <h3 style={{
+        color: theme.pinkDark}}>
         AGENDAMENTO
       </h3>
 
