@@ -196,7 +196,12 @@ export default function SchedulePage() {
       </h2>
 
       <h3 style={{
-        color: theme.pinkDark}}>
+        color: theme.pinkDark,
+        fontWeight: 600,
+        letterSpacing: '1px',
+        marginTop: '25px',
+        marginBottom: '25px'
+        }}>
         AGENDAMENTO
       </h3>
 
