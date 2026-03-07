@@ -1,38 +1,95 @@
-.service-card {
-  margin-bottom: 12px;
-  padding: 14px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #fff;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s ease;
+.schedule-container{
+max-width:420px;
+margin:80px auto;
+background:white;
+padding:40px;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(0,0,0,0.15);
+text-align:center;
+font-family:Arial;
 }
 
-.service-card:hover {
-  background: #f8f8f8;
-  transform: scale(1.02);
+.schedule-logo{
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:15px;
 }
 
-.service-selected {
-  border: 3px solid #4db8ff;
-  background: #e8f6ff;
+.schedule-input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:6px;
+border:1px solid #ddd;
 }
 
-.continue-button {
-  width: 100%;
-  padding: 14px;
-  background: #ff4fa0;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.service-card{
+margin-bottom:12px;
+padding:14px;
+border-radius:8px;
+border:1px solid #ddd;
+background:white;
+cursor:pointer;
+text-align:left;
+transition:0.2s;
 }
 
-.continue-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+.service-card:hover{
+transform:scale(1.04);
+border-color:#4db8ff;
+}
+
+.service-selected{
+border:3px solid #4db8ff;
+background:#e8f6ff;
+}
+
+.slot-card{
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+margin-top:8px;
+cursor:pointer;
+background:white;
+transition:0.2s;
+}
+
+.slot-card:hover{
+transform:scale(1.04);
+border-color:#4db8ff;
+}
+
+.slot-selected{
+border:3px solid #4db8ff;
+background:#e8f6ff;
+}
+
+.continue-button{
+width:100%;
+padding:12px;
+background:#ff4fa0;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+margin-top:25px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.continue-button:hover{
+transform:scale(1.04);
+}
+
+.confirmation-card{
+max-width:420px;
+margin:80px auto;
+background:white;
+padding:40px;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(0,0,0,0.15);
+text-align:center;
+font-family:Arial;
 }
