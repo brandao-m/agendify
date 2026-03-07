@@ -58,6 +58,58 @@ try {
 
 }
 
+async function handleSchedule() {
+
+  if (!name || !phone || !selectedService || !selectedSlot || !date) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  try {
+
+    const customerResponse = await fetch(
+      "http://127.0.0.1:8000/customers/find-or-create",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tenant_id: 1,
+          name,
+          phone
+        })
+      }
+    );
+
+    const customer = await customerResponse.json();
+
+    const startAt = `${date}T${selectedSlot}`;
+
+    const appointmentResponse = await fetch(
+      "http://127.0.0.1:8000/appointments/",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tenant_id: 1,
+          customer_id: customer.id,
+          service_id: selectedService,
+          start_at: startAt
+        })
+      }
+    );
+
+    const appointment = await appointmentResponse.json();
+
+    alert("Agendamento confirmado!");
+
+    console.log(appointment);
+
+  } catch (error) {
+    console.error("Erro ao agendar", error);
+  }
+
+}
+
 return (
 <div style={{
 maxWidth: "420px",
@@ -218,6 +270,8 @@ boxShadow: "0 12px 30px rgba(0,0,0,0.15)"
               const time = slot.substring(0,5);
               const isSelected = selectedSlot === slot;
 
+              
+              
               return (
                 <div
                   key={index}
@@ -258,7 +312,7 @@ boxShadow: "0 12px 30px rgba(0,0,0,0.15)"
   {/* BOTÃO */}
   <button
   className="continue-button"
-  style={{ marginTop: "5px" }}
+  onClick={handleSchedule}
 >
     Continuar
   </button>
