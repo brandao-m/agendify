@@ -136,6 +136,24 @@ export default function SchedulePage() {
 
   }
 
+  // 🔹 FORMATA DATA PARA PADRÃO BRASILEIRO
+  function formatDateBR(dateString: string) {
+
+    const date = new Date(dateString + "T00:00:00");
+
+    const formattedDate = date.toLocaleDateString("pt-BR");
+
+    const weekday = date.toLocaleDateString("pt-BR", {
+      weekday: "long"
+    });
+
+    const capitalizedWeekday =
+      weekday.charAt(0).toUpperCase() + weekday.slice(1);
+
+    return `${formattedDate} (${capitalizedWeekday})`;
+
+  }
+
   if (confirmation) {
 
     return (
@@ -150,7 +168,7 @@ export default function SchedulePage() {
 
         <p><strong>Serviço:</strong> {getServiceName()}</p>
 
-        <p><strong>Data:</strong> {confirmation.date}</p>
+        <p><strong>Data:</strong> {formatDateBR(confirmation.date)}</p>
 
         <p><strong>Horário:</strong> {confirmation.slot.substring(0,5)}</p>
 
@@ -279,7 +297,7 @@ export default function SchedulePage() {
         className="continue-button"
         onClick={handleSchedule}
       >
-        Continuar
+        AGENDAR
       </button>
 
     </div>
