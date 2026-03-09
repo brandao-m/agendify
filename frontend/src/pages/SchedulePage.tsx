@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { getServices } from "../api/services";
 import "../styles/SchedulePage.css";
 import logo from "../assets/logo.jpg";
 
 export default function SchedulePage() {
+
+  const { slug } = useParams();
+
+  const [tenant, setTenant] = useState<any>(null);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -13,37 +17,48 @@ export default function SchedulePage() {
   const [selectedService, setSelectedService] = useState<number | null>(null);
 
   const [date, setDate] = useState("");
-  const [slots, setSlots] = useState<any[]>([]);
+  const [slots, setSlots] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const [confirmation, setConfirmation] = useState<any | null>(null);
-  const { slug } = useParams();
 
   const theme = {
     pink: "#ff4fa0",
     pinkDark: "#36232c"
   };
 
-  const [tenant, setTenant] = useState<any>(null);
+  // ================================
+  // CARREGA TENANT PELO SLUG
+  // ================================
+  useEffect(() => {
 
-useEffect(() => {
+    async function loadTenant() {
 
-  async function loadTenant() {
+      try {
 
-    const response = await fetch(
-      `http://127.0.0.1:8000/tenants/slug/${slug}`
-    );
+        const response = await fetch(
+          `http://127.0.0.1:8000/tenants/slug/${slug}`
+        );
 
-    const data = await response.json();
+        const data = await response.json();
 
-    setTenant(data);
+        setTenant(data);
 
-  }
+      } catch (error) {
 
-  loadTenant();
+        console.error("Erro ao carregar tenant", error);
 
-}, [slug]);
+      }
 
+    }
+
+    if (slug) loadTenant();
+
+  }, [slug]);
+
+  // ================================
+  // CARREGA SERVICOS
+  // ================================
   useEffect(() => {
 
     async function loadServices() {
@@ -51,6 +66,7 @@ useEffect(() => {
       try {
 
         const data = await getServices();
+
         setServices(data);
 
       } catch (error) {
@@ -65,14 +81,17 @@ useEffect(() => {
 
   }, []);
 
+  // ================================
+  // CARREGA HORARIOS DISPONIVEIS
+  // ================================
   async function loadSlots(selectedDate: string) {
 
-    if (!selectedService) return;
+    if (!selectedService || !tenant) return;
 
     try {
 
       const response = await fetch(
-        `http://127.0.0.1:8000/slots/available?tenant_id=1&service_id=${selectedService}&appointment_date=${selectedDate}`
+        `http://127.0.0.1:8000/slots/available?tenant_id=${tenant.id}&service_id=${selectedService}&appointment_date=${selectedDate}`
       );
 
       const data = await response.json();
@@ -87,6 +106,9 @@ useEffect(() => {
 
   }
 
+  // ================================
+  // CRIAR AGENDAMENTO
+  // ================================
   async function handleSchedule() {
 
     if (!name || !phone || !selectedService || !selectedSlot || !date) {
@@ -131,6 +153,16 @@ useEffect(() => {
         }
       );
 
+      // TRATAMENTO DE ERRO DO BACKEND
+      if (!appointmentResponse.ok) {
+
+        const error = await appointmentResponse.json();
+
+        alert(error.detail);
+
+        return;
+      }
+
       await appointmentResponse.json();
 
       setConfirmation({
@@ -148,6 +180,9 @@ useEffect(() => {
 
   }
 
+  // ================================
+  // NOME DO SERVICO
+  // ================================
   function getServiceName() {
 
     const service = services.find(
@@ -158,7 +193,9 @@ useEffect(() => {
 
   }
 
-  // 🔹 FORMATA DATA PARA PADRÃO BRASILEIRO
+  // ================================
+  // FORMATACAO PARA DATAS BR
+  // ================================
   function formatDateBR(dateString: string) {
 
     const date = new Date(dateString + "T00:00:00");
@@ -176,33 +213,39 @@ useEffect(() => {
 
   }
 
+  // ================================
+  // TELA DE CONFIRMACAO
+  // ================================
   if (confirmation) {
 
     return (
 
-    <div className="confirmation-card">
+      <div className="confirmation-card">
 
-      <h2 style={{color:"#ff4fa0"}}>
-        Agendamento confirmado 🎉
-      </h2>
+        <h2 style={{ color: "#ff4fa0" }}>
+          Agendamento confirmado 🎉
+        </h2>
 
-      <p><strong>Paciente:</strong> {confirmation.customerName}</p>
+        <p><strong>Paciente:</strong> {confirmation.customerName}</p>
 
-      <p><strong>Serviço:</strong> {getServiceName()}</p>
+        <p><strong>Serviço:</strong> {getServiceName()}</p>
 
-      <p><strong>Data:</strong> {formatDateBR(confirmation.date)}</p>
+        <p><strong>Data:</strong> {formatDateBR(confirmation.date)}</p>
 
-      <p><strong>Horário:</strong> {confirmation.slot.substring(0,5)}</p>
+        <p><strong>Horário:</strong> {confirmation.slot.substring(0, 5)}</p>
 
-    </div>
+      </div>
 
     );
 
   }
 
+  // ================================
+  // PAGINA DE AGENDAMENTO
+  // ================================
   return (
 
-      <div className="schedule-container">
+    <div className="schedule-container">
 
       <img
         src={logo}
@@ -212,17 +255,17 @@ useEffect(() => {
 
       <h2 style={{
         color: theme.pink,
-        fontWeight: 600 
-        }}>
+        fontWeight: 600
+      }}>
         {tenant?.name}
       </h2>
 
       <h3 style={{
         color: theme.pinkDark,
         fontWeight: 600,
-        marginTop: '25px',
-        marginBottom: '25px'
-        }}>
+        marginTop: "25px",
+        marginBottom: "25px"
+      }}>
         Agendamento
       </h3>
 
@@ -303,7 +346,7 @@ useEffect(() => {
 
           <h3>Horários disponíveis</h3>
 
-          {slots.map((slot: any, index: number) => (
+          {slots.map((slot: string, index: number) => (
 
             <div
               key={index}
@@ -313,7 +356,7 @@ useEffect(() => {
               }`}
             >
 
-              {slot.substring(0,5)}
+              {slot.substring(0, 5)}
 
             </div>
 

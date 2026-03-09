@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from datetime import timedelta, datetime, date
 from sqlmodel import Session, select
 
@@ -31,7 +31,11 @@ def create_appointment(
     existing = session.exec(statement).first()
 
     if existing:
-        return {'error': 'Horário já reservado'}
+        
+        raise HTTPException(
+            status_code=400,
+            detail="Horário já reservado"
+        )
     
     appointment = Appointment(
         tenant_id=data.tenant_id,
