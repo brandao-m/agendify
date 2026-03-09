@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import { getServices } from "../api/services";
 import "../styles/SchedulePage.css";
 import logo from "../assets/logo.jpg";
@@ -16,11 +17,32 @@ export default function SchedulePage() {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const [confirmation, setConfirmation] = useState<any | null>(null);
+  const { slug } = useParams();
 
   const theme = {
     pink: "#ff4fa0",
     pinkDark: "#36232c"
   };
+
+  const [tenant, setTenant] = useState<any>(null);
+
+useEffect(() => {
+
+  async function loadTenant() {
+
+    const response = await fetch(
+      `http://127.0.0.1:8000/tenants/slug/${slug}`
+    );
+
+    const data = await response.json();
+
+    setTenant(data);
+
+  }
+
+  loadTenant();
+
+}, [slug]);
 
   useEffect(() => {
 
@@ -82,7 +104,7 @@ export default function SchedulePage() {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            tenant_id: 1,
+            tenant_id: tenant.id,
             name,
             phone
           })
@@ -101,7 +123,7 @@ export default function SchedulePage() {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            tenant_id: 1,
+            tenant_id: tenant.id,
             customer_id: customer.id,
             service_id: selectedService,
             start_at: startAt
@@ -192,7 +214,7 @@ export default function SchedulePage() {
         color: theme.pink,
         fontWeight: 600 
         }}>
-        Dra. Daisy Almeida
+        {tenant?.name}
       </h2>
 
       <h3 style={{
