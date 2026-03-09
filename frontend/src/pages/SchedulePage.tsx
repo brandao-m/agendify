@@ -15,6 +15,7 @@ export default function SchedulePage() {
 
   const [services, setServices] = useState<any[]>([]);
   const [selectedService, setSelectedService] = useState<number | null>(null);
+  const [loadingServices, setLoadingServices] = useState(true);
 
   const [date, setDate] = useState("");
   const [slots, setSlots] = useState<string[]>([]);
@@ -67,6 +68,8 @@ export default function SchedulePage() {
 
     try {
 
+      setLoadingServices(true);
+
       const data = await getServices(tenant.id);
 
       setServices(data);
@@ -74,6 +77,10 @@ export default function SchedulePage() {
     } catch (error) {
 
       console.error(error);
+
+    } finally {
+
+      setLoadingServices(false);
 
     }
 
@@ -287,7 +294,16 @@ export default function SchedulePage() {
         className="schedule-input"
       />
 
-      {services.length > 0 && (
+      {loadingServices && (
+
+        <p style={{marginTop:"20px", color:"#777"}}>
+
+          Carregando serviços...
+
+        </p>
+      )}
+
+      {!loadingServices && services.length > 0 && (
 
         <div>
 
