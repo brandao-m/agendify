@@ -198,11 +198,10 @@ export default function SchedulePage() {
       <h3 style={{
         color: theme.pinkDark,
         fontWeight: 600,
-        letterSpacing: '1px',
         marginTop: '25px',
         marginBottom: '25px'
         }}>
-        AGENDAMENTO
+        Agendamento
       </h3>
 
       <input
@@ -306,7 +305,7 @@ export default function SchedulePage() {
         className="continue-button"
         onClick={handleSchedule}
       >
-        AGENDAR
+        CONFIRMAR
       </button>
 
     </div>

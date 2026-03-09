@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from app.db.session import get_session
 from app.models.tenant import Tenant
@@ -22,5 +22,14 @@ def create_tenant(data: TenantCreate, session: Session = Depends(get_session)):
     session.add(tenant)
     session.commit()
     session.refresh(tenant)
+
+    return tenant
+
+@router.get('/slug/{slug}')
+def get_tenant_by_slug(slug: str, session: Session = Depends(get_session)):
+
+    statement= select(Tenant).where(Tenant.slug == slug)
+
+    tenant = session.exec(statement).first()
 
     return tenant
