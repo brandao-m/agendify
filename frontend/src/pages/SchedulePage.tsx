@@ -61,25 +61,27 @@ export default function SchedulePage() {
   // ================================
   useEffect(() => {
 
-    async function loadServices() {
+  async function loadServices() {
 
-      try {
+    if (!tenant) return;
 
-        const data = await getServices();
+    try {
 
-        setServices(data);
+      const data = await getServices(tenant.id);
 
-      } catch (error) {
+      setServices(data);
 
-        console.error(error);
+    } catch (error) {
 
-      }
+      console.error(error);
 
     }
 
-    loadServices();
+  }
 
-  }, []);
+  loadServices();
+
+}, [tenant]);
 
   // ================================
   // CARREGA HORARIOS DISPONIVEIS
