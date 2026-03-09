@@ -14,4 +14,6 @@ class Tenant(SQLModel, table=True):
     
     hashed_password: str
 
+    logo_url: str | None = None
+
     created_at: datetime = Field(default_factory=datetime.utcnow)

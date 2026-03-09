@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getServices } from "../api/services";
 import "../styles/SchedulePage.css";
-import logo from "../assets/logo.jpg";
 
 export default function SchedulePage() {
 
@@ -257,7 +256,7 @@ export default function SchedulePage() {
     <div className="schedule-container">
 
       <img
-        src={logo}
+        src={tenant?.logo_url || "/logo-default.png"}
         alt="Logo"
         className="schedule-logo"
       />
