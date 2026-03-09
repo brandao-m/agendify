@@ -180,21 +180,21 @@ useEffect(() => {
 
     return (
 
-      <div className="confirmation-card">
+    <div className="confirmation-card">
 
-        <h2 style={{color:"#ff4fa0"}}>
-          Agendamento confirmado 🎉
-        </h2>
+      <h2 style={{color:"#ff4fa0"}}>
+        Agendamento confirmado 🎉
+      </h2>
 
-        <p><strong>Paciente:</strong> {confirmation.customerName}</p>
+      <p><strong>Paciente:</strong> {confirmation.customerName}</p>
 
-        <p><strong>Serviço:</strong> {getServiceName()}</p>
+      <p><strong>Serviço:</strong> {getServiceName()}</p>
 
-        <p><strong>Data:</strong> {formatDateBR(confirmation.date)}</p>
+      <p><strong>Data:</strong> {formatDateBR(confirmation.date)}</p>
 
-        <p><strong>Horário:</strong> {confirmation.slot.substring(0,5)}</p>
+      <p><strong>Horário:</strong> {confirmation.slot.substring(0,5)}</p>
 
-      </div>
+    </div>
 
     );
 
@@ -202,7 +202,7 @@ useEffect(() => {
 
   return (
 
-    <div className="schedule-container">
+      <div className="schedule-container">
 
       <img
         src={logo}
