@@ -6,7 +6,7 @@ A aplicação permite que clientes agendem serviços de forma simples através d
 
 ---
 
-## Demonstração
+## Screenshots
 
 ### Página de Agendamento
 
@@ -140,7 +140,7 @@ npm run dev
 ## Exemplo de uso
 A aplicação suporta links personalizados:
 ```
-http://localhost:5173/dra-daisy
+http://localhost:5173/dra-margarida
 ```
 
 Cada profissional possui:
